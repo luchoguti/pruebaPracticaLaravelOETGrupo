@@ -9,7 +9,7 @@
 					<div class="float-left"><h3>Lista de Propietarios / Conductores </h3></div>
 					<div class="float-right">
 						<div class="btn-group">
-							<a href="{{ route('usuarios_acme.create') }}" class="btn btn-info">Añadir</a>
+							<a href="{{ route('usuarios_acme.create') }}" class="btn btn-info"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 						</div>
 					</div>
 					<div class="card-body">
