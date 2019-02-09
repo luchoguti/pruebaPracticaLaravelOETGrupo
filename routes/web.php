@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('usuarios_acme', 'UsuariosAcmeController');
 Route::resource('vehiculos', 'VehiculosController');
 
+Route::get('informe_vehiculos', 'VehiculosController@pdf')->name('informe_vehiculos.pdf');

@@ -9,6 +9,8 @@ use ACME\UsuariosAcme;
 use ACME\Vehiculos;
 use ACME\Marcas;
 
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class VehiculosController extends Controller
 {
@@ -130,5 +132,32 @@ class VehiculosController extends Controller
     {
         Vehiculos::where('id_vehiculo', $id)->delete();
         return redirect()->route('vehiculos.index')->with('success','Registro eliminado satisfactoriamente');
+    }
+
+    /**
+     * create pdf vehiculos
+     *
+     * @param  
+     * @return \Illuminate\Http\Response
+     */
+    public function pdf(){
+        
+        $listado_vehiculos=Vehiculos::join('usuarios_acme as usu_condunct','usu_condunct.id_usu_acme','=','vehiculos.id_conductor')
+        ->join('usuarios_acme as usu_propie','usu_propie.id_usu_acme','=','vehiculos.id_propietario')
+        ->join('marcas','marcas.id_marca','=','vehiculos.id_marca')
+        ->select(
+            'vehiculos.placa',
+            'marcas.nom_marca',
+            'usu_condunct.primer_nombre as condunct_primer_nom',
+            'usu_condunct.segundo_nombre as condunct_segundo_nom',
+            'usu_condunct.apellidos as condunct_apellido',
+            'usu_propie.primer_nombre as propie_primer_nom',
+            'usu_propie.segundo_nombre as propie_segundo_nom',
+            'usu_propie.apellidos as propie_apellido')
+        ->orderBy('id_vehiculo','DESC')->get();
+
+        $pdf = PDF::loadView('pdf.vehiculos', compact('listado_vehiculos'));
+
+        return $pdf->download('listado_vehiculos.pdf');
     }
 }

@@ -11,6 +11,9 @@
 						<div class="btn-group">
 							<a href="{{ route('vehiculos.create') }}" class="btn btn-info">Añadir</a>
 						</div>
+						<div class="btn-group">
+							<a class="btn btn-success btn-xs" href="{{ route('informe_vehiculos.pdf') }}" ><span class="fa fa-file-pdf-o"></span></a>
+						</div>
 					</div>
 					<div class="card-body">
 						@include('modals.modalConfirm')
@@ -38,8 +41,9 @@
 										<form action="{{action('VehiculosController@destroy', $listadoVehiculos->id_vehiculo)}}" method="post" class="form-inline form-delete">
 											{{csrf_field()}}
 											<input name="_method" type="hidden" value="DELETE">
-											<button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button></form>
-										</td>
+											<button class="btn btn-danger btn-xs" type="submit"><span class="fa fa-trash"></span></button>
+										</form>
+									</td>
 									</tr>
 									@endforeach 
 									@else
